@@ -51,6 +51,10 @@ public class BankService {
     }
 
     public void deleteBank(Long id) {
+        if (!_iBankRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Bank not found");
+        }
+
         _iBankRepository.deleteById(id);
     }
 

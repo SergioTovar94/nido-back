@@ -16,6 +16,8 @@ import com.nido.back.application.dtos.BankRequest;
 import com.nido.back.application.dtos.BankResponse;
 import com.nido.back.application.service.BankService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/banks")
 public class BankController {
@@ -37,7 +39,7 @@ public class BankController {
     }
 
     @PostMapping
-    public ResponseEntity<BankResponse> postBank(@RequestBody BankRequest request) {
+    public ResponseEntity<BankResponse> postBank(@Valid @RequestBody BankRequest request) {
         return ResponseEntity.ok(_bankService.postBank(request));
     }
 
