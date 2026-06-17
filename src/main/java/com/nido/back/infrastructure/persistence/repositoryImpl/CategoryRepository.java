@@ -10,18 +10,14 @@ import com.nido.back.domain.repository.ICategoryRepository;
 import com.nido.back.infrastructure.persistence.mapper.CategoryEntityMapper;
 import com.nido.back.infrastructure.persistence.repository.JpaCategoryRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Repository
+@RequiredArgsConstructor
 public class CategoryRepository implements ICategoryRepository {
 
     private final JpaCategoryRepository _jpaCategoryRepository;
     private final CategoryEntityMapper _entityCategoryMapper;
-
-    public CategoryRepository(
-            JpaCategoryRepository jpaCategoryRepository,
-            CategoryEntityMapper entityCategoryMapper) {
-        _jpaCategoryRepository = jpaCategoryRepository;
-        _entityCategoryMapper = entityCategoryMapper;
-    }
 
     @Override
     public List<Category> getAll() {

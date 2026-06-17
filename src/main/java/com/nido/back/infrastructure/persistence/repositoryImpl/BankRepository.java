@@ -11,18 +11,14 @@ import com.nido.back.infrastructure.persistence.entity.BankEntity;
 import com.nido.back.infrastructure.persistence.mapper.BankEntityMapper;
 import com.nido.back.infrastructure.persistence.repository.JpaBankRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Repository
+@RequiredArgsConstructor
 public class BankRepository implements IBankRepository {
 
     private final JpaBankRepository _jpaBankRepository;
     private final BankEntityMapper _entityBankMapper;
-
-    public BankRepository(
-            JpaBankRepository jpaBankRepository,
-            BankEntityMapper entityBankMapper) {
-        _jpaBankRepository = jpaBankRepository;
-        _entityBankMapper = entityBankMapper;
-    }
 
     @Override
     public List<Bank> getAll() {

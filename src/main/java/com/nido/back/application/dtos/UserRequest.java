@@ -15,5 +15,5 @@ public class UserRequest {
     private String email;
 
     @NotBlank(message = "La contraseña es obligatoria")
-    private String password_hash;
+    private String password;
 }

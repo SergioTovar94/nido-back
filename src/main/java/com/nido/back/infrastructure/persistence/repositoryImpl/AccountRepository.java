@@ -11,18 +11,14 @@ import com.nido.back.infrastructure.persistence.entity.AccountEntity;
 import com.nido.back.infrastructure.persistence.mapper.AccountEntityMapper;
 import com.nido.back.infrastructure.persistence.repository.JpaAccountRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Repository
+@RequiredArgsConstructor
 public class AccountRepository implements IAccountRepository {
 
     private final JpaAccountRepository _jpaAccountRepository;
     private final AccountEntityMapper _entityAccountMapper;
-
-    public AccountRepository(
-            JpaAccountRepository jpaAccountRepository,
-            AccountEntityMapper entityAccountMapper) {
-        _entityAccountMapper = entityAccountMapper;
-        _jpaAccountRepository = jpaAccountRepository;
-    }
 
     @Override
     public List<Account> getAll() {

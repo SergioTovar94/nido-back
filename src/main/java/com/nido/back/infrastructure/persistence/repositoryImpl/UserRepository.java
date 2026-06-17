@@ -11,18 +11,14 @@ import com.nido.back.infrastructure.persistence.entity.UserEntity;
 import com.nido.back.infrastructure.persistence.mapper.UserEntityMapper;
 import com.nido.back.infrastructure.persistence.repository.JpaUserRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Repository
+@RequiredArgsConstructor
 public class UserRepository implements IUserRespository {
 
     private final JpaUserRepository _jpaUserRepository;
     private final UserEntityMapper _userMapper;
-
-    public UserRepository(
-            JpaUserRepository jpaUSerRepository,
-            UserEntityMapper userMapper) {
-        _jpaUserRepository = jpaUSerRepository;
-        _userMapper = userMapper;
-    }
 
     @Override
     public List<User> getAll() {
@@ -48,6 +44,17 @@ public class UserRepository implements IUserRespository {
         UserEntity entity = _userMapper.toEntity(user);
         UserEntity saved = _jpaUserRepository.save(entity);
         return _userMapper.toDomain(saved);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return _jpaUserRepository.findByEmail(email)
+                .map(_userMapper::toDomain);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        _jpaUserRepository.deleteById(id);
     }
 
 }

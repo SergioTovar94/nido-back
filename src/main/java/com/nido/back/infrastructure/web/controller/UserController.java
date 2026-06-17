@@ -7,9 +7,13 @@ import com.nido.back.application.dtos.UserRequest;
 import com.nido.back.application.dtos.UserResponse;
 import com.nido.back.application.service.UserService;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +30,7 @@ public class UserController {
     }
 
     @GetMapping()
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponse>> getUsers() {
         return ResponseEntity.ok(_userService.listar());
     }
@@ -36,8 +41,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponse> postAccount(@RequestBody UserRequest request) {
+    public ResponseEntity<UserResponse> postAccount(@Valid @RequestBody UserRequest request) {
         return ResponseEntity.ok(_userService.postUser(request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        _userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
